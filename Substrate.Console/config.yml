@@ -1,0 +1,5 @@
+﻿#config.yml
+node:
+ url: "wss://unique-rpc.dwellir.com"
+account:
+ mnemonic: "add your mnemonic here"
