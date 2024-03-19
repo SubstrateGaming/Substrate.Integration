@@ -1,0 +1,5 @@
+﻿#config.yml
+node:
+ url: "wss://unique-rpc.dwellir.com"
+account:
+ mnemonic: "medal cluster exercise illegal catalog limit history nose hybrid custom layer maximum"
