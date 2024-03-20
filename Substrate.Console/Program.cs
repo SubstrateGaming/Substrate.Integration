@@ -18,6 +18,7 @@ using System.Numerics;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using YamlDotNet.Core.Tokens;
+using Substrate.Opal.NET.NetApiExt.Generated.Model.primitive_types;
 
 namespace Substrate.Console
 {
@@ -134,8 +135,72 @@ namespace Substrate.Console
             Log.Information("The Extrinsic had {count} events", result.ExtrinsicInfo.EventRecords.Count);
             result.ExtrinsicInfo.EventRecords.ForEach(e =>
             {
-                // and can also deep dive into each of the extrinsic events that happend
                 Log.Information("Event {Event}", e.Event.Value);
+
+                switch (e.Event.Value2)
+                {
+                    case Opal.NET.NetApiExt.Generated.Model.pallet_balances.pallet.EnumEvent typedEvent:
+                        Log.Information("+- Event Value2 {fullname}", typedEvent.Value);
+                        switch(typedEvent.Value)
+                        {
+                            case Substrate.Opal.NET.NetApiExt.Generated.Model.pallet_balances.pallet.Event.Transfer:
+                                {
+                                    var typedValues = (BaseTuple<AccountId32, AccountId32, U128>)typedEvent.Value2;
+                                    Log.Information("   +- Transfer {from} -> {to} - {value}", ((AccountId32)typedValues.Value[0]).ToAddress(), ((AccountId32)typedValues.Value[1]).ToAddress(), ((U128)typedValues.Value[2]).Value.ToString());
+                                    break;
+                                }
+                            case Substrate.Opal.NET.NetApiExt.Generated.Model.pallet_balances.pallet.Event.Withdraw:
+                                {
+                                    var typedValues = (BaseTuple<AccountId32, U128>)typedEvent.Value2;
+                                    Log.Information("   +- Withdraw {from} - {value}", ((AccountId32)typedValues.Value[0]).ToAddress(), ((U128)typedValues.Value[1]).Value.ToString());
+                                }
+                                break;
+                            case Substrate.Opal.NET.NetApiExt.Generated.Model.pallet_balances.pallet.Event.Deposit:
+                                {
+                                    var typedValues = (BaseTuple<AccountId32, U128>)typedEvent.Value2;
+                                    Log.Information("   +- Deposit {from} - {value}", ((AccountId32)typedValues.Value[0]).ToAddress(), ((U128)typedValues.Value[1]).Value.ToString());
+                                }
+                                break;
+                        }
+                        break;
+                    case Opal.NET.NetApiExt.Generated.Model.frame_system.pallet.EnumEvent typedEvent:
+                        Log.Information("+- Event Value2 {fullname}", typedEvent.Value);
+                        switch (typedEvent.Value)
+                        {
+                            case Substrate.Opal.NET.NetApiExt.Generated.Model.frame_system.pallet.Event.Remarked:
+                                {
+                                    var typedValues = (BaseTuple<AccountId32, H256>)typedEvent.Value2;
+                                    Log.Information("   +- Remarked {from} - {hash}", ((AccountId32)typedValues.Value[0]).ToAddress(), ((H256)typedValues.Value[1]).ToHexString());
+                                }
+                                break;
+                        }
+                        break;
+                    case Opal.NET.NetApiExt.Generated.Model.pallet_treasury.pallet.EnumEvent typedEvent:
+                        Log.Information("+- Event Value2 {fullname}", typedEvent.Value);
+                        switch (typedEvent.Value)
+                        {
+                            case Substrate.Opal.NET.NetApiExt.Generated.Model.pallet_treasury.pallet.Event.Deposit:
+                                {
+                                    var typedValues = (U128)typedEvent.Value2;
+                                    Log.Information("   +- Deposit {value}", typedValues.Value.ToString());
+                                }
+                                break;
+                        }
+                        break;
+
+                    // add unhandled cases ...
+                    default:
+                        Log.Information("Unhandled event type: {Type}", e.Event.Value2.GetType().Name);
+                        var value2 = e.Event.Value2;
+                        Type type = value2.GetType();
+                        foreach (var property in type.GetProperties())
+                        {
+                            var propertyName = property.Name;
+                            var propertyValue = property.GetValue(value2, null);
+                            Log.Information("   +- {PropertyName}: {PropertyValue}", propertyName, propertyValue);
+                        }
+                        break;
+                }
             });
 
             await client.DisconnectAsync();
