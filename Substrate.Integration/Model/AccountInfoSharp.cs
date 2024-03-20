@@ -1,4 +1,4 @@
-﻿using Substrate.Unique.NET.NetApiExt.Generated.Model.frame_system;
+﻿using Substrate.Opal.NET.NetApiExt.Generated.Model.frame_system;
 
 namespace Substrate.Integration.Model
 {

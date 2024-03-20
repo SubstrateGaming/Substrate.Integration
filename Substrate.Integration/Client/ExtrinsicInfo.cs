@@ -1,9 +1,9 @@
-﻿using Substrate.Unique.NET.NetApiExt.Generated.Model.unique_runtime;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.frame_support.dispatch;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.frame_system;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.frame_system.pallet;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.sp_arithmetic;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.sp_runtime;
+﻿using Substrate.Opal.NET.NetApiExt.Generated.Model.opal_runtime;
+using Substrate.Opal.NET.NetApiExt.Generated.Model.frame_support.dispatch;
+using Substrate.Opal.NET.NetApiExt.Generated.Model.frame_system;
+using Substrate.Opal.NET.NetApiExt.Generated.Model.frame_system.pallet;
+using Substrate.Opal.NET.NetApiExt.Generated.Model.sp_arithmetic;
+using Substrate.Opal.NET.NetApiExt.Generated.Model.sp_runtime;
 using Substrate.Integration.Helper;
 using Substrate.NetApi;
 using Substrate.NetApi.Model.Rpc;

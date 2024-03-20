@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34601.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Substrate.Integration", "Substrate.Integration\Substrate.Integration.csproj", "{2EBFD63C-7840-4A38-876F-8848C56D0503}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Substrate.Integration", "Substrate.Integration\Substrate.Integration.csproj", "{2EBFD63C-7840-4A38-876F-8848C56D0503}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Substrate.Chain", "Substrate.Chain\Substrate.Chain.csproj", "{8071B59C-33FA-45D4-9D5B-45AB379AB478}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Substrate.Console", "Substrate.Console\Substrate.Console.csproj", "{C953ADC5-C818-4BFA-BA8D-C57CEF736CDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Substrate.Console", "Substrate.Console\Substrate.Console.csproj", "{C953ADC5-C818-4BFA-BA8D-C57CEF736CDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Substrate.Opal.NET.NetApiExt", "Substrate.Opal.NET.NetApiExt\Substrate.Opal.NET.NetApiExt.csproj", "{0F749CD6-AD94-4E0A-9C43-CC1474F20D08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{2EBFD63C-7840-4A38-876F-8848C56D0503}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EBFD63C-7840-4A38-876F-8848C56D0503}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EBFD63C-7840-4A38-876F-8848C56D0503}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8071B59C-33FA-45D4-9D5B-45AB379AB478}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8071B59C-33FA-45D4-9D5B-45AB379AB478}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8071B59C-33FA-45D4-9D5B-45AB379AB478}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8071B59C-33FA-45D4-9D5B-45AB379AB478}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C953ADC5-C818-4BFA-BA8D-C57CEF736CDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C953ADC5-C818-4BFA-BA8D-C57CEF736CDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C953ADC5-C818-4BFA-BA8D-C57CEF736CDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C953ADC5-C818-4BFA-BA8D-C57CEF736CDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F749CD6-AD94-4E0A-9C43-CC1474F20D08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F749CD6-AD94-4E0A-9C43-CC1474F20D08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F749CD6-AD94-4E0A-9C43-CC1474F20D08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F749CD6-AD94-4E0A-9C43-CC1474F20D08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,6 @@
-﻿using Substrate.Unique.NET.NetApiExt.Generated.Model.primitive_types;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.sp_core.crypto;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.sp_runtime.multiaddress;
+﻿using Substrate.Opal.NET.NetApiExt.Generated.Model.primitive_types;
+using Substrate.Opal.NET.NetApiExt.Generated.Model.sp_core.crypto;
+using Substrate.Opal.NET.NetApiExt.Generated.Model.sp_runtime.multiaddress;
 using Substrate.NetApi;
 using Substrate.NetApi.Model.Types;
 using Substrate.NetApi.Model.Types.Base;

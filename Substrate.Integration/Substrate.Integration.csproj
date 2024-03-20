@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Substrate.Chain\Substrate.Chain.csproj" />
+    <ProjectReference Include="..\Substrate.Opal.NET.NetApiExt\Substrate.Opal.NET.NetApiExt.csproj" />
   </ItemGroup>
 
 </Project>

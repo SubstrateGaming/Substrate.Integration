@@ -1,8 +1,8 @@
 ﻿using Serilog;
 using StreamJsonRpc;
-using Substrate.Unique.NET.NetApiExt.Generated;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.frame_system;
-using Substrate.Unique.NET.NetApiExt.Generated.Storage;
+using Substrate.Opal.NET.NetApiExt.Generated;
+using Substrate.Opal.NET.NetApiExt.Generated.Model.frame_system;
+using Substrate.Opal.NET.NetApiExt.Generated.Storage;
 using Substrate.Integration.Helper;
 using Substrate.NET.Schnorrkel.Keys;
 using Substrate.NetApi;

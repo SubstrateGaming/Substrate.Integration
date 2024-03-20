@@ -1,6 +1,6 @@
 ﻿using Serilog;
-using Substrate.Unique.NET.NetApiExt.Generated;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.frame_system;
+using Substrate.Opal.NET.NetApiExt.Generated;
+using Substrate.Opal.NET.NetApiExt.Generated.Model.frame_system;
 using Substrate.NetApi.Model.Rpc;
 using System;
 using System.Collections.Concurrent;
