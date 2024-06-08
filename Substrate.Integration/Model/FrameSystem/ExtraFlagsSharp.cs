@@ -1,7 +1,7 @@
 ﻿using Substrate.Polkadot.NET.NetApiExt.Generated.Model.pallet_balances.types;
 using System.Numerics;
 
-namespace Substrate.Integration.Model
+namespace Substrate.Integration.Model.FrameSystem
 {
     /// <summary>
     /// Extra Flags C# Wrapper

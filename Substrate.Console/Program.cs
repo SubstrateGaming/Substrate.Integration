@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration.Yaml;
 using Serilog;
 using Substrate.Integration;
 using Substrate.Integration.Helper;
+using Substrate.Integration.Model.PalletReferenda;
 using Substrate.NetApi;
 using Substrate.NetApi.Model.Types;
 using Substrate.NetApi.Model.Types.Base;
@@ -16,6 +17,8 @@ using Substrate.Polkadot.NET.NetApiExt.Generated.Model.sp_runtime.multiaddress;
 using Substrate.Polkadot.NET.NetApiExt.Generated.Storage;
 using System.Numerics;
 using System.Security.Principal;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using YamlDotNet.Core.Tokens;
 
@@ -101,6 +104,21 @@ namespace Substrate.Console
             EnumReferendumInfo enumReferendumInfo = await client.SubstrateClient.ReferendaStorage.ReferendumInfoFor(referendumInfoDict.Keys.First(), null, token);
 
             Log.Information("The referanda with the key {count} has the following information {info}!", referendumInfoDict.Keys.First().Value, enumReferendumInfo.Value);
+
+
+            Dictionary<uint, ReferendumInfoSharp> finalDict = new Dictionary<uint, ReferendumInfoSharp>();
+            foreach (var item in referendumInfoDict)
+            {
+                finalDict[item.Key.Value] = new ReferendumInfoSharp(item.Value);
+            }
+
+            // Now `finalDict` contains `uint` keys and `ReferendumInfoSharp` values
+            foreach (var item in finalDict)
+            {
+                Log.Information("Referendum: {key}", item.Key);
+                Log.Information("{key}\n", JsonSerializer.Serialize(item.Value, new JsonSerializerOptions { WriteIndented = true, Converters = { new JsonStringEnumConverter(), new BigIntegerConverter() } }));
+            }
+
 
             await client.DisconnectAsync();
         }

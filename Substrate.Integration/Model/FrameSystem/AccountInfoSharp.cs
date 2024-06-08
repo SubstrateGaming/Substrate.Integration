@@ -1,6 +1,6 @@
 ﻿using Substrate.Polkadot.NET.NetApiExt.Generated.Model.frame_system;
 
-namespace Substrate.Integration.Model
+namespace Substrate.Integration.Model.FrameSystem
 {
     /// <summary>
     /// Account Info C# Wrapper
