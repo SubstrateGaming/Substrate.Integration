@@ -108,11 +108,11 @@ namespace Substrate.Integration
         /// <param name="item"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<Dictionary<T1, T2>> GetAllStorageAsync<T1, T2>(string module, string item, CancellationToken token)
+        public async Task<Dictionary<T1, T2>> GetAllStorageAsync<T1, T2>(string module, string item, bool isBlake128Concat, CancellationToken token)
             where T1 : IType, new()
             where T2 : IType, new()
         {
-            return await GetAllStorageAsync<T1, T2>(module, item, null, null, token);
+            return await GetAllStorageAsync<T1, T2>(module, item, null, null, isBlake128Concat,token);
         }
 
         /// <summary>
@@ -125,11 +125,11 @@ namespace Substrate.Integration
         /// <param name="subKey"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<Dictionary<T1, T2>> GetAllStorageAsync<T1, T2>(string module, string item, byte[] subKey, CancellationToken token)
+        public async Task<Dictionary<T1, T2>> GetAllStorageAsync<T1, T2>(string module, string item, byte[] subKey, bool isBlake128Concat, CancellationToken token)
             where T1 : IType, new()
             where T2 : IType, new()
         {
-            return await GetAllStorageAsync<T1, T2>(module, item, null, subKey, token);
+            return await GetAllStorageAsync<T1, T2>(module, item, null, subKey, isBlake128Concat, token);
         }
 
         /// <summary>
@@ -140,13 +140,14 @@ namespace Substrate.Integration
         /// <param name="module"></param>
         /// <param name="item"></param>
         /// <param name="blockHash"></param>
+        /// <param name="isBlake128Concat"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<Dictionary<T1, T2>> GetAllStorageAsync<T1, T2>(string module, string item, string blockHash, CancellationToken token)
+        public async Task<Dictionary<T1, T2>> GetAllStorageAsync<T1, T2>(string module, string item, string blockHash, bool isBlake128Concat, CancellationToken token)
             where T1 : IType, new()
             where T2 : IType, new()
         {
-            return await GetAllStorageAsync<T1, T2>(module, item, blockHash, null, token);
+            return await GetAllStorageAsync<T1, T2>(module, item, blockHash, null, isBlake128Concat, token);
         }
 
         /// <summary>
@@ -158,9 +159,10 @@ namespace Substrate.Integration
         /// <param name="item"></param>
         /// <param name="blockHash"></param>
         /// <param name="subKey"></param>
+        /// <param name="isBlake128Concat"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<Dictionary<T1, T2>> GetAllStorageAsync<T1, T2>(string module, string item, string? blockHash, byte[]? subKey, CancellationToken token)
+        public async Task<Dictionary<T1, T2>> GetAllStorageAsync<T1, T2>(string module, string item, string? blockHash, byte[]? subKey, bool isBlake128Concat, CancellationToken token)
             where T1 : IType, new()
             where T2 : IType, new()
         {
@@ -173,7 +175,7 @@ namespace Substrate.Integration
 
             do
             {
-                storageEntries = await GetStoragePagedAsync<T1, T2>(module, item, nextStorageKey, batchSize, blockHash, subKey, token);
+                storageEntries = await GetStoragePagedAsync<T1, T2>(module, item, nextStorageKey, batchSize, blockHash, subKey, isBlake128Concat, token);
 
                 foreach (var storageEntry in storageEntries)
                 {
@@ -200,13 +202,14 @@ namespace Substrate.Integration
         /// <param name="startKey"></param>
         /// <param name="page"></param>
         /// <param name="blockHash"></param>
+        /// <param name="isBlake128Concat"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<List<(byte[], T1, T2)>> GetStoragePagedAsync<T1, T2>(string module, string item, byte[] startKey, uint page, string blockHash, CancellationToken token)
+        public async Task<List<(byte[], T1, T2)>> GetStoragePagedAsync<T1, T2>(string module, string item, byte[] startKey, uint page, string blockHash, bool isBlake128Concat, CancellationToken token)
             where T1 : IType, new()
             where T2 : IType, new()
         {
-            return await GetStoragePagedAsync<T1, T2>(module, item, startKey, page, blockHash, null, token);
+            return await GetStoragePagedAsync<T1, T2>(module, item, startKey, page, blockHash, null, isBlake128Concat, token);
         }
 
         /// <summary>
@@ -220,10 +223,11 @@ namespace Substrate.Integration
         /// <param name="page"></param>
         /// <param name="blockHash"></param>
         /// <param name="subKey"></param>
+        /// <param name="isBlake128Concat"></param>
         /// <param name="token"></param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public async Task<List<(byte[], T1, T2)>?> GetStoragePagedAsync<T1, T2>(string module, string item, byte[]? startKey, uint page, string? blockHash, byte[]? subKey, CancellationToken token)
+        public async Task<List<(byte[], T1, T2)>?> GetStoragePagedAsync<T1, T2>(string module, string item, byte[]? startKey, uint page, string? blockHash, byte[]? subKey, bool isBlake128Concat, CancellationToken token)
             where T1 : IType, new()
             where T2 : IType, new()
         {
@@ -254,7 +258,7 @@ namespace Substrate.Integration
                 return result;
             }
 
-            var keySize = Utils.Bytes2HexString(keyBytes).Length;
+            var keySize = Utils.Bytes2HexString(keyBytes).Length + 32;
 
             var storageChangeSets = await SubstrateClient.State.GetQueryStorageAtAsync(storageKeys.Select(p => Utils.HexToByteArray(p.ToString())).ToList(), blockHash, token);
             if (storageChangeSets != null)
@@ -294,7 +298,7 @@ namespace Substrate.Integration
             var result = new List<byte[]>();
 
             byte[]? nextStorageKey = null;
-            List<byte[]> storageEntries;
+            List<byte[]>? storageEntries;
             do
             {
                 storageEntries = await GetStorageKeysPagedAsync(module, item, nextStorageKey, 1000, blockHash, subKey, token);
@@ -324,7 +328,7 @@ namespace Substrate.Integration
         /// <param name="token"></param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public async Task<List<byte[]>> GetStorageKeysPagedAsync(string module, string item, byte[] startKey, uint page, string blockHash, byte[] subKey, CancellationToken token)
+        public async Task<List<byte[]>?> GetStorageKeysPagedAsync(string module, string item, byte[] startKey, uint page, string? blockHash, byte[] subKey, CancellationToken token)
         {
             if (!IsConnected)
             {
@@ -367,7 +371,7 @@ namespace Substrate.Integration
         /// <param name="token"></param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public async Task<List<(string, T1)>> GetStorageByKeysAsync<T1>(string module, string item, List<string> keys, string blockHash, CancellationToken token)
+        public async Task<List<(string, T1)>?> GetStorageByKeysAsync<T1>(string module, string item, List<string> keys, string? blockHash, CancellationToken token)
             where T1 : IType, new()
         {
             if (!IsConnected)
