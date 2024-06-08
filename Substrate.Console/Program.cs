@@ -9,6 +9,7 @@ using Substrate.NetApi.Model.Types.Base;
 using Substrate.NetApi.Model.Types.Primitive;
 using Substrate.Polkadot.NET.NetApiExt.Client;
 using Substrate.Polkadot.NET.NetApiExt.Generated.Model.bounded_collections.bounded_vec;
+using Substrate.Polkadot.NET.NetApiExt.Generated.Model.pallet_referenda.types;
 using Substrate.Polkadot.NET.NetApiExt.Generated.Model.polkadot_runtime;
 using Substrate.Polkadot.NET.NetApiExt.Generated.Model.sp_core.crypto;
 using Substrate.Polkadot.NET.NetApiExt.Generated.Model.sp_runtime.multiaddress;
@@ -91,7 +92,9 @@ namespace Substrate.Console
 
             Log.Information("Connected to node {NodeUrl} on block {Block}", nodeUrl, block.Block.Header.Number);
 
+            Dictionary<U32, EnumReferendumInfo> referendumInfoDict = await client.GetAllStorageAsync<U32, EnumReferendumInfo>("Referenda", "ReferendumInfoFor", token);
 
+            Log.Information("There are currently {count} referendas on Polkadot!", referendumInfoDict.Count);
 
             await client.DisconnectAsync();
         }
