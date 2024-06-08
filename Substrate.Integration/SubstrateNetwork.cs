@@ -20,16 +20,9 @@ namespace Substrate.Integration
     public partial class SubstrateNetwork : BaseClient
     {
         /// <summary>
-        /// Decimals
-        /// </summary>
-        public const long DECIMALS = 1000000000000;
-
-        /// <summary>
         /// Account
         /// </summary>
-        public Account Account { get; set; }
-
-        public object SudoCalls { get; private set; }
+        public Account? Account { get; set; }
 
         /// <summary>
         /// Substrate network constructor
@@ -37,7 +30,7 @@ namespace Substrate.Integration
         /// <param name="account"></param>
         /// <param name="networkType"></param>
         /// <param name="url"></param>
-        public SubstrateNetwork(Account account, string url) : base(url)
+        public SubstrateNetwork(Account? account, string url) : base(url)
         {
             Account = account;
         }
@@ -167,7 +160,7 @@ namespace Substrate.Integration
         /// <param name="subKey"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<Dictionary<T1, T2>> GetAllStorageAsync<T1, T2>(string module, string item, string blockHash, byte[]? subKey, CancellationToken token)
+        public async Task<Dictionary<T1, T2>> GetAllStorageAsync<T1, T2>(string module, string item, string? blockHash, byte[]? subKey, CancellationToken token)
             where T1 : IType, new()
             where T2 : IType, new()
         {
@@ -230,7 +223,7 @@ namespace Substrate.Integration
         /// <param name="token"></param>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        public async Task<List<(byte[], T1, T2)>> GetStoragePagedAsync<T1, T2>(string module, string item, byte[]? startKey, uint page, string blockHash, byte[]? subKey, CancellationToken token)
+        public async Task<List<(byte[], T1, T2)>?> GetStoragePagedAsync<T1, T2>(string module, string item, byte[]? startKey, uint page, string? blockHash, byte[]? subKey, CancellationToken token)
             where T1 : IType, new()
             where T2 : IType, new()
         {
@@ -296,11 +289,11 @@ namespace Substrate.Integration
         /// <param name="subKey"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<List<byte[]>> GetAllStorageKeysAsync(string module, string item, string blockHash, byte[] subKey, CancellationToken token)
+        public async Task<List<byte[]>?> GetAllStorageKeysAsync(string module, string item, string? blockHash, byte[] subKey, CancellationToken token)
         {
             var result = new List<byte[]>();
 
-            byte[] nextStorageKey = null;
+            byte[]? nextStorageKey = null;
             List<byte[]> storageEntries;
             do
             {
@@ -309,8 +302,7 @@ namespace Substrate.Integration
                 if (storageEntries != null && storageEntries.Any())
                 {
                     result.AddRange(storageEntries);
-                    //nextStorageKey = storageEntries[^1];
-                    nextStorageKey = storageEntries[storageEntries.Count - 1];
+                    nextStorageKey = storageEntries[^1];
                 }
             }
             while (storageEntries != null && storageEntries.Any());

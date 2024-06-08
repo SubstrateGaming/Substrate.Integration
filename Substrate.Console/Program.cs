@@ -63,6 +63,46 @@ namespace Substrate.Console
         }
 
         private static async Task MainAsync(IConfigurationRoot config, CancellationToken token)
+        { 
+            await ReferendasTestAsync(config, token);
+            //await RemarkTestAsync(config, token);
+        }
+
+        /// <summary>
+        /// Referendas Test Async
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        private static async Task ReferendasTestAsync(IConfigurationRoot config, CancellationToken token)
+        {
+            string nodeUrl = config["node:url"];
+            string mnemonic = config["account:mnemonic"];
+
+            var account = Mnemonic.GetAccountFromMnemonic(mnemonic, "", KeyType.Sr25519);
+
+            Log.Information("Account {Address}", account.ToString());
+
+            var client = new SubstrateNetwork(account, nodeUrl);
+
+            await client.ConnectAsync(true, true, token);
+
+            var block = await client.SubstrateClient.Chain.GetBlockAsync(token);
+
+            Log.Information("Connected to node {NodeUrl} on block {Block}", nodeUrl, block.Block.Header.Number);
+
+
+
+            await client.DisconnectAsync();
+        }
+
+        /// <summary>
+        /// Remark Test Async
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        private static async Task RemarkTestAsync(IConfigurationRoot config, CancellationToken token)
         {
             string nodeUrl = config["node:url"];
 
@@ -138,33 +178,6 @@ namespace Substrate.Console
             });
 
             await client.DisconnectAsync();
-        }
-
-        /// <summary>
-        /// This is a method that creates an enumeration runtime call, and allows you to use it
-        /// for example as a parameter of an extrinsic
-        /// </summary>
-        /// <param name="target"></param>
-        /// <param name="amount"></param>
-        /// <returns></returns>
-        public EnumRuntimeCall BalancesTransferKeepAlive(AccountId32 target, BigInteger amount)
-        {
-            var baseU128 = new BaseCom<U128>();
-            baseU128.Create(amount);
-
-            var multiAddress = new EnumMultiAddress();
-            multiAddress.Create(MultiAddress.Id, target);
-
-            var baseTubleParams = new BaseTuple<EnumMultiAddress, BaseCom<U128>>();
-            baseTubleParams.Create(multiAddress, baseU128);
-
-            var enumPalletCall = new Polkadot.NET.NetApiExt.Generated.Model.pallet_balances.pallet.EnumCall();
-            enumPalletCall.Create(Polkadot.NET.NetApiExt.Generated.Model.pallet_balances.pallet.Call.transfer_keep_alive, baseTubleParams);
-
-            var enumCall = new EnumRuntimeCall();
-            enumCall.Create(RuntimeCall.Balances, enumPalletCall);
-
-            return enumCall;
         }
     }
 }
