@@ -2,6 +2,8 @@ using Substrate.NetApi;
 using Substrate.NetApi.Model.Types;
 using Substrate.NetApi.Model.Types.Base;
 using Substrate.NetApi.Model.Types.Primitive;
+using Substrate.Polkadot.NET.NetApiExt.Generated.Model.frame_system;
+using Substrate.Polkadot.NET.NetApiExt.Generated.Model.sp_core.crypto;
 using System.Numerics;
 
 namespace Substrate.Integration.Test
@@ -40,7 +42,7 @@ namespace Substrate.Integration.Test
         }
 
         [Test]
-        public async Task AllAccountsTestAsync()
+        public async Task GetBlockNumberTestAsync()
         {
             Assert.That(_client, Is.Not.Null);
             Assert.That(_client.IsConnected, Is.False);
@@ -56,5 +58,6 @@ namespace Substrate.Integration.Test
             Assert.That(await _client.DisconnectAsync(), Is.True);
             Assert.That(_client.IsConnected, Is.False);
         }
+
     }
 }
