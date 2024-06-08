@@ -92,9 +92,15 @@ namespace Substrate.Console
 
             Log.Information("Connected to node {NodeUrl} on block {Block}", nodeUrl, block.Block.Header.Number);
 
-            Dictionary<U32, EnumReferendumInfo> referendumInfoDict = await client.GetAllStorageAsync<U32, EnumReferendumInfo>("Referenda", "ReferendumInfoFor", token);
+            // getting all referendas
+            Dictionary<U32, EnumReferendumInfo> referendumInfoDict = await client.GetAllStorageAsync<U32, EnumReferendumInfo>("Referenda", "ReferendumInfoFor", true, token);
 
             Log.Information("There are currently {count} referendas on Polkadot!", referendumInfoDict.Count);
+
+            // getting a single one
+            EnumReferendumInfo enumReferendumInfo = await client.SubstrateClient.ReferendaStorage.ReferendumInfoFor(referendumInfoDict.Keys.First(), null, token);
+
+            Log.Information("The referanda with the key {count} has the following information {info}!", referendumInfoDict.Keys.First().Value, enumReferendumInfo.Value);
 
             await client.DisconnectAsync();
         }
