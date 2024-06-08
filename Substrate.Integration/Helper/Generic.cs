@@ -1,13 +1,10 @@
-﻿using Substrate.Unique.NET.NetApiExt.Generated.Model.primitive_types;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.sp_core.crypto;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.sp_runtime.multiaddress;
-using Substrate.NetApi;
+﻿using Substrate.NetApi;
 using Substrate.NetApi.Model.Types;
 using Substrate.NetApi.Model.Types.Base;
 using Substrate.NetApi.Model.Types.Primitive;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Substrate.Polkadot.NET.NetApiExt.Generated.Model.primitive_types;
+using Substrate.Polkadot.NET.NetApiExt.Generated.Model.sp_core.crypto;
+using Substrate.Polkadot.NET.NetApiExt.Generated.Model.sp_runtime.multiaddress;
 using System.Numerics;
 using System.Text;
 

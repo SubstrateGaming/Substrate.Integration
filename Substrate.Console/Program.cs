@@ -2,18 +2,17 @@
 using Microsoft.Extensions.Configuration.Yaml;
 using Serilog;
 using Substrate.Integration;
-using Substrate.Integration.Client;
 using Substrate.Integration.Helper;
 using Substrate.NetApi;
 using Substrate.NetApi.Model.Types;
 using Substrate.NetApi.Model.Types.Base;
 using Substrate.NetApi.Model.Types.Primitive;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.bounded_collections.bounded_vec;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.sp_core.crypto;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.sp_runtime.multiaddress;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.unique_runtime;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.up_data_structs;
-using Substrate.Unique.NET.NetApiExt.Generated.Storage;
+using Substrate.Polkadot.NET.NetApiExt.Client;
+using Substrate.Polkadot.NET.NetApiExt.Generated.Model.bounded_collections.bounded_vec;
+using Substrate.Polkadot.NET.NetApiExt.Generated.Model.polkadot_runtime;
+using Substrate.Polkadot.NET.NetApiExt.Generated.Model.sp_core.crypto;
+using Substrate.Polkadot.NET.NetApiExt.Generated.Model.sp_runtime.multiaddress;
+using Substrate.Polkadot.NET.NetApiExt.Generated.Storage;
 using System.Numerics;
 using System.Security.Principal;
 using System.Threading.Tasks;
@@ -73,7 +72,7 @@ namespace Substrate.Console
 
             Log.Information("Account {Address}", account.ToString());
 
-            var client = new SubstrateNetwork(account, NetworkType.Live, nodeUrl);
+            var client = new SubstrateNetwork(account, nodeUrl);
 
             await client.ConnectAsync(true, true, token);
 
@@ -159,8 +158,8 @@ namespace Substrate.Console
             var baseTubleParams = new BaseTuple<EnumMultiAddress, BaseCom<U128>>();
             baseTubleParams.Create(multiAddress, baseU128);
 
-            var enumPalletCall = new Unique.NET.NetApiExt.Generated.Model.pallet_balances.pallet.EnumCall();
-            enumPalletCall.Create(Unique.NET.NetApiExt.Generated.Model.pallet_balances.pallet.Call.transfer_keep_alive, baseTubleParams);
+            var enumPalletCall = new Polkadot.NET.NetApiExt.Generated.Model.pallet_balances.pallet.EnumCall();
+            enumPalletCall.Create(Polkadot.NET.NetApiExt.Generated.Model.pallet_balances.pallet.Call.transfer_keep_alive, baseTubleParams);
 
             var enumCall = new EnumRuntimeCall();
             enumCall.Create(RuntimeCall.Balances, enumPalletCall);

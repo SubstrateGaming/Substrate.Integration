@@ -1,4 +1,4 @@
-﻿using Substrate.Unique.NET.NetApiExt.Generated.Model.pallet_balances.types;
+﻿using Substrate.Polkadot.NET.NetApiExt.Generated.Model.pallet_balances.types;
 using System.Numerics;
 
 namespace Substrate.Integration.Model
