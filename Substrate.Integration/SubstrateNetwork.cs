@@ -20,16 +20,9 @@ namespace Substrate.Integration
     public partial class SubstrateNetwork : BaseClient
     {
         /// <summary>
-        /// Decimals
-        /// </summary>
-        public const long DECIMALS = 1000000000000;
-
-        /// <summary>
         /// Account
         /// </summary>
-        public Account Account { get; set; }
-
-        public object SudoCalls { get; private set; }
+        public Account? Account { get; set; }
 
         /// <summary>
         /// Substrate network constructor
@@ -37,7 +30,7 @@ namespace Substrate.Integration
         /// <param name="account"></param>
         /// <param name="networkType"></param>
         /// <param name="url"></param>
-        public SubstrateNetwork(Account account, string url) : base(url)
+        public SubstrateNetwork(Account? account, string url) : base(url)
         {
             Account = account;
         }
