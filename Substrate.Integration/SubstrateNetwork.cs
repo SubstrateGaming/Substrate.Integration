@@ -1,6 +1,5 @@
 ﻿using Serilog;
 using Substrate.Integration.Helper;
-using Substrate.Integration.Model;
 using Substrate.NetApi;
 using Substrate.NetApi.Model.Types;
 using Substrate.NetApi.Model.Types.Base;
@@ -12,6 +11,7 @@ using Substrate.Polkadot.NET.NetApiExt.Generated.Storage;
 using System.Numerics;
 
 using Substrate.Polkadot.NET.NetApiExt.Client;
+using Substrate.Integration.Model.FrameSystem;
 namespace Substrate.Integration
 {
     /// <summary>
