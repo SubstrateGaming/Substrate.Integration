@@ -1,17 +1,17 @@
 ﻿using Serilog;
-using Substrate.Integration.Client;
 using Substrate.Integration.Helper;
 using Substrate.Integration.Model;
 using Substrate.NetApi;
 using Substrate.NetApi.Model.Types;
 using Substrate.NetApi.Model.Types.Base;
 using Substrate.NetApi.Model.Types.Primitive;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.sp_core.crypto;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.sp_runtime.multiaddress;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.unique_runtime;
-using Substrate.Unique.NET.NetApiExt.Generated.Storage;
+using Substrate.Polkadot.NET.NetApiExt.Generated.Model.polkadot_runtime;
+using Substrate.Polkadot.NET.NetApiExt.Generated.Model.sp_core.crypto;
+using Substrate.Polkadot.NET.NetApiExt.Generated.Model.sp_runtime.multiaddress;
+using Substrate.Polkadot.NET.NetApiExt.Generated.Storage;
 using System.Numerics;
 
+using Substrate.Polkadot.NET.NetApiExt.Client;
 namespace Substrate.Integration
 {
     /// <summary>
@@ -29,13 +29,15 @@ namespace Substrate.Integration
         /// </summary>
         public Account Account { get; set; }
 
+        public object SudoCalls { get; private set; }
+
         /// <summary>
         /// Substrate network constructor
         /// </summary>
         /// <param name="account"></param>
         /// <param name="networkType"></param>
         /// <param name="url"></param>
-        public SubstrateNetwork(Account account, NetworkType networkType, string url) : base(url, networkType)
+        public SubstrateNetwork(Account account, string url) : base(url)
         {
             Account = account;
         }
@@ -510,27 +512,6 @@ namespace Substrate.Integration
             var extrinsic = UtilityCalls.BatchAll(calls);
 
             return await GenericExtrinsicAsync(account, extrinsicType, extrinsic, concurrentTasks, token);
-        }
-
-        /// <summary>
-        /// Submit a sudo extrinsic.
-        /// </summary>
-        /// <param name="call"></param>
-        /// <param name="concurrentTasks"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        public async Task<string> SudoAsync(Account sudoAccount, EnumRuntimeCall call, int concurrentTasks, CancellationToken token)
-        {
-            var extrinsicType = "Sudo.Sudo";
-
-            if (!IsConnected || sudoAccount == null || call == null)
-            {
-                return null;
-            }
-
-            var extrinsic = SudoCalls.Sudo(call);
-
-            return await GenericExtrinsicAsync(sudoAccount, extrinsicType, extrinsic, concurrentTasks, token);
         }
 
         #endregion extrinsics

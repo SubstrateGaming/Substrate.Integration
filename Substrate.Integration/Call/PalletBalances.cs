@@ -1,6 +1,6 @@
-﻿using Substrate.Unique.NET.NetApiExt.Generated.Model.unique_runtime;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.sp_core.crypto;
-using Substrate.Unique.NET.NetApiExt.Generated.Model.sp_runtime.multiaddress;
+﻿using Substrate.Polkadot.NET.NetApiExt.Generated.Model.polkadot_runtime;
+using Substrate.Polkadot.NET.NetApiExt.Generated.Model.sp_core.crypto;
+using Substrate.Polkadot.NET.NetApiExt.Generated.Model.sp_runtime.multiaddress;
 using Substrate.NetApi.Model.Types.Base;
 using Substrate.NetApi.Model.Types.Primitive;
 using System.Numerics;
@@ -29,8 +29,8 @@ namespace Substrate.Integration.Call
             var baseTubleParams = new BaseTuple<EnumMultiAddress, BaseCom<U128>>();
             baseTubleParams.Create(multiAddress, baseU128);
 
-            var enumPalletCall = new Unique.NET.NetApiExt.Generated.Model.pallet_balances.pallet.EnumCall();
-            enumPalletCall.Create(Unique.NET.NetApiExt.Generated.Model.pallet_balances.pallet.Call.transfer_keep_alive, baseTubleParams);
+            var enumPalletCall = new Polkadot.NET.NetApiExt.Generated.Model.pallet_balances.pallet.EnumCall();
+            enumPalletCall.Create(Polkadot.NET.NetApiExt.Generated.Model.pallet_balances.pallet.Call.transfer_keep_alive, baseTubleParams);
 
             var enumCall = new EnumRuntimeCall();
             enumCall.Create(RuntimeCall.Balances, enumPalletCall);
