@@ -1,4 +1,6 @@
-﻿namespace Substrate.Integration
+﻿using System;
+
+namespace Substrate.Integration
 {
     internal class Program
     {

@@ -5,6 +5,9 @@ using Substrate.NetApi.Model.Types.Primitive;
 using Substrate.Polkadot.NET.NetApiExt.Generated.Model.primitive_types;
 using Substrate.Polkadot.NET.NetApiExt.Generated.Model.sp_core.crypto;
 using Substrate.Polkadot.NET.NetApiExt.Generated.Model.sp_runtime.multiaddress;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Text;
 

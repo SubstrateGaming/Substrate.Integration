@@ -14,7 +14,7 @@ namespace Substrate.Integration.Model.PalletReferenda
         public DecidingStatusSharp(DecidingStatus decidingStatus)
         {
             Since = decidingStatus.Since.Value;
-            Confirming = decidingStatus.Confirming.OptionFlag ? decidingStatus.Confirming.Value.Value : null;
+            Confirming = decidingStatus.Confirming.OptionFlag ? decidingStatus.Confirming.Value.Value : (uint?)null;
         }
 
         /// <summary>
